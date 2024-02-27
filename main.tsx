@@ -59,11 +59,11 @@ app.post("/deployment", async (c) => {
       DB_HOST: Deno.env.get("DB_HOST"),
       DB_USER: Deno.env.get("DB_USER"),
       DB_PASS: Deno.env.get("DB_PASS"),
-      CA_CERT: await Deno.readTextFile("/etc/ssl/cert.pem"),
     },
   });
 
   const deploymentResponse = await dr.json();
+  console.log("deploymentResponse: ", deploymentResponse);
 
   await db.set([body.projectId, deploymentResponse.id, "code"], body.code);
 
