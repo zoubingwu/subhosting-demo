@@ -66,27 +66,20 @@ form {
   overflow: hidden;
 }
 
-#deployments-container, #logs-container {
+#deployments-container {
   position: absolute;
   width: 30%;
   right: 0;
   overflow: auto;
-  border-left: 1px solid #555;
-}
-
-#deployments-container {
   top: 0;
   height: 100%;
+  border-left: 1px solid #555;
 }
 
 #preview {
   border-bottom: 1px solid #555;
   width: 100%;
-}
-
-#logs-container {
-  bottom: 0;
-  border-top: 1px solid #555;
+  height: 33%;
 }
 
 #editor {
@@ -102,7 +95,7 @@ form {
   color: #eee;
 }
 
-#logs, #deployments {
+ #deployments {
   font-family: Monaco, Consolas, monospace;
   font-size: 14px;
   margin: 10px;
@@ -121,4 +114,9 @@ form {
 
 .deployment-line .success {
   color: green;
+}
+
+.deployment-line .logs-link {
+  font-size: 12px;
+  margin-left: 4px;
 }

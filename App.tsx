@@ -35,7 +35,7 @@ export default function App({ projects }: { projects?: any }) {
               <div id="editor"></div>
             </div>
             <div id="deployments-container">
-              <iframe src="" frameborder="0" id="preview" height="50%"></iframe>
+              <iframe src="" frameborder="0" id="preview"></iframe>
               <div>
                 <h3>Deployment History</h3>
                 <div id="deployments"></div>

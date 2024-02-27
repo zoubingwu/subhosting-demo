@@ -17,6 +17,8 @@ function setDeployments(deployments) {
         <a href="https://${deployment.domains?.[0]}" target="_blank">
           ${deployment.domains?.[0] || "URL pending..."}
         </a>
+        <a href="/app_logs/${deployment.id}" target="_blank" class="logs-link">AppLogs</a>
+        <a href="/build_logs/${deployment.id}" target="_blank" class="logs-link">BuildLogs</a>
         <span class="timestamp">
           <span class="status ${deployment.status}">${deployment.status}</span>
           ${deployment.updatedAt}

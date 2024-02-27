@@ -229,6 +229,15 @@ export default class Client {
     });
   }
 
+  async listBuildLogs(deploymentId: string): Promise<Response> {
+    return await this.fetch(`/deployments/${deploymentId}/build_logs`, {
+      method: "GET",
+      headers: {
+        "Accept": "application/json",
+      },
+    });
+  }
+
   /**
    * Create a new deployment for the given project by ID. Docs:
    * https://docs.deno.com/deploy/api/rest/deployments
