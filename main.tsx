@@ -7,6 +7,7 @@ import Client from "./subhosting.ts";
 
 const shc = new Client();
 const app = new Hono();
+const db = await Deno.openKv();
 
 app.get("/", async (c) => {
   const projects = await (await shc.listProjects()).json();
@@ -20,6 +21,12 @@ app.get("/deployments", async (c) => {
     order: "desc",
   });
   const deployments = await dr.json();
+
+  if (deployments.length) {
+    const res = await db.get([projectId, deployments[0].id, "code"]);
+    deployments[0].code = res.value;
+  }
+
   return c.json(deployments);
 });
 
@@ -31,14 +38,17 @@ app.post("/deployment", async (c) => {
     entryPointUrl: "main.ts",
     assets: {
       "main.ts": {
-        "kind": "file",
-        "content": body.code,
-        "encoding": "utf-8",
+        kind: "file",
+        content: body.code,
+        encoding: "utf-8",
       },
     },
     envVars: {},
   });
+
   const deploymentResponse = await dr.json();
+
+  await db.set([body.projectId, deploymentResponse.id, "code"], body.code);
 
   return c.json(deploymentResponse);
 });

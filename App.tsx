@@ -18,19 +18,16 @@ export default function App({ projects }: { projects?: any }) {
       </head>
       <body>
         <nav>
-          <h1>
-            Basic Browser IDE
-          </h1>
+          <h1>Basic Browser IDE</h1>
           <div id="project-selector">
-            <select id="project-list">
-              {projList}
-            </select>
+            <select id="project-list">{projList}</select>
             <form action="/project" method="POST">
               <button type="submit" id="new-project">
                 Generate New Project
               </button>
             </form>
           </div>
+          <button id="deploy-button">Save & Deploy</button>
         </nav>
         <main>
           <div style="position:relative;height:100%;width:100%;">
@@ -38,10 +35,12 @@ export default function App({ projects }: { projects?: any }) {
               <div id="editor"></div>
             </div>
             <div id="deployments-container">
-              <h3>Deployments</h3>
-              <div id="deployments"></div>
+              <iframe src="" frameborder="0" id="preview" height="50%"></iframe>
+              <div>
+                <h3>Deployment History</h3>
+                <div id="deployments"></div>
+              </div>
             </div>
-            <button id="deploy-button">Save & Deploy</button>
           </div>
         </main>
       </body>

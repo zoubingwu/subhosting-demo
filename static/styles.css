@@ -79,6 +79,11 @@ form {
   height: 100%;
 }
 
+#preview {
+  border-bottom: 1px solid #555;
+  width: 100%;
+}
+
 #logs-container {
   bottom: 0;
   border-top: 1px solid #555;
@@ -92,15 +97,9 @@ form {
 }
 
 #deploy-button {
-  position: absolute;
-  right: 31%;
-  top: 10px;
-  height: 60px;
-  width: 120px;
   background-color: green;
   font-weight: bold;
   color: #eee;
-  z-index: 1;
 }
 
 #logs, #deployments {

@@ -1,8 +1,14 @@
 {
   "tasks": {
-    "dev": "deno run -A --watch --env main.tsx"
+    "dev": "deno run -A --unstable-kv --watch --env main.tsx"
   },
   "imports": {
     "$hono/": "https://deno.land/x/hono@v3.12.0/"
+  },
+  "compilerOptions": {
+    "lib": [
+      "deno.window",
+      "deno.unstable"
+    ]
   }
 }

@@ -2,6 +2,11 @@ let editor; // window scope reference to the Ace editor
 
 function setDeployments(deployments) {
   const $t = document.getElementById("deployments");
+  const $iframe = document.getElementById("preview");
+
+  if (deployments.length && deployments?.[0].domains?.[0]) {
+    $iframe.setAttribute('src', "https://" + deployments?.[0].domains?.[0]);
+  }
 
   if (!deployments || deployments.length < 1) {
     $t.innerHTML = "<p>No deployments for this project.</p>";
@@ -9,8 +14,8 @@ function setDeployments(deployments) {
     let html = "";
     deployments.forEach((deployment) => {
       html += `<div class="deployment-line">
-        <a href="https://${deployment.domains[0]}" target="_blank">
-          ${deployment.domains[0] || "URL pending..."}
+        <a href="https://${deployment.domains?.[0]}" target="_blank">
+          ${deployment.domains?.[0] || "URL pending..."}
         </a>
         <span class="timestamp">
           <span class="status ${deployment.status}">${deployment.status}</span>
@@ -55,15 +60,22 @@ async function saveAndDeploy(e) {
     }),
   });
   const deployResult = await dr.json();
+  console.log('deployResult: ', deployResult);
 }
 
-window.onload = function () {
+window.onload = async function () {
   // Initialize editor
   editor = ace.edit("editor");
   editor.session.setTabSize(2);
   editor.setTheme("ace/theme/chrome");
   editor.session.setMode("ace/mode/typescript");
+
+  const projectId = getProjectId();
+  const dr = await fetch(`/deployments?projectId=${projectId}`);
+  const deployments = await dr.json();
+
   editor.setValue(
+    deployments?.[0]?.code ||
     `Deno.serve(() => {
   console.log("Responding hello...");
   return new Response("Hello, subhosting!");
